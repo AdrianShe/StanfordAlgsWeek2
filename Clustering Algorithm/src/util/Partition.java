@@ -1,28 +1,100 @@
+/**
+ * 
+ */
 package util;
 
-/* 
- * @author: Adrian She
- * @since: 07/12/2014
- * 
- * A representation of a particular partition in a Union-Find type
- */
+import java.util.LinkedHashSet;
+import java.util.Set;
 
-public interface Partition<T> {
+/**
+ * @author Adrian She
+ * @since: 07/15/2014
+ */
+public class Partition<T> implements PartitionInterface<T> {
 	
-	// Adds an item to the partition
-	public void addItem(T item);
+	private T leader;
+	private Set<T> items;
 	
-	// Returns true if item is in partition
-	public boolean inPartition(T item);
+	public Partition(T t) {
+		leader = t;
+		items = new LinkedHashSet<T>();
+		items.add(t);
+	}
+
+	@Override
+	public void addItem(T item) {
+		// TODO Auto-generated method stub
+		items.add(item);
+	}
 	
-	// Returns the leader pointer of this particular partition
-	public T getLeader();
+	@Override
+	public void addAllItems(Set<T> setOfItems) {
+		items.addAll(setOfItems);
+	}
 	
-	// Sets the leader pointer of an the item in the particular partition
-	public void setLeader();
-		
-	// Returns the size of a this particular partition
-	public int getSize();
+	@Override
+	public void removeAllItems() {
+		leader = null;
+		items.clear();
+	}
 	
+
+	@Override
+	public boolean inPartition(T item) {
+		// TODO Auto-generated method stub
+		return items.contains(item);
+	}
+
+	@Override
+	public T getLeader() {
+		// TODO Auto-generated method stub
+		return leader;
+	}
+
+	@Override
+	public int getSize() {
+		// TODO Auto-generated method stub
+		return items.size();
+	}
+	
+	@Override
+	public Set<T> getItems() {
+		// TODO Auto-generated method stub
+		return items;
+	}
+
+	
+
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + ((leader == null) ? 0 : leader.hashCode());
+		return result;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		else {
+			return this.equals((Partition<T>) obj);
+		}
+	}
+	
+	@Override
+	public boolean equals(Partition<T> obj) {
+		if (this.getLeader().equals(obj.getLeader())) {
+			return true;
+		}
+		return false;
+	}
+
+	
+
 
 }
