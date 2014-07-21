@@ -40,25 +40,22 @@ public class UnionFind<T> implements UnionFindInterface<T>, Iterable<Partition<T
 	}
 	
 	@Override
-	public Partition<T> findPartition(Partition<T> partition) {
+	public Partition<T> findPartition(T t) {
 		// TODO Auto-generated method stub
-		if (items.containsValue(partition)) {
-			for (Partition<T> part: partitions) {
-				if (part.equals(partition)) {
-					return part;
-				}
-			}
-		}
-		return null;
+		return items.get(t);
 	}
 
 	@Override
 	public void join(T leader1, T leader2) {
 		// TODO Auto-generated method stub
-		Partition<T> p1 = findPartition(new Partition<T>(leader1));
-		Partition<T> p2 = findPartition(new Partition<T>(leader2));
+		Partition<T> p1 = findPartition(leader1);
+		Partition<T> p2 = findPartition(leader2);
+		
+		if (!partitions.contains(p1) || !partitions.contains(p2)) {
+			return;
+		}
 
-		if (p1 == null || p2 == null || p1.equals(p2)) {
+		if (p1 == null || p2 == null) {
 			return;
 		}
 		else {
@@ -66,13 +63,14 @@ public class UnionFind<T> implements UnionFindInterface<T>, Iterable<Partition<T
 			int p2size = p2.getSize();
 			if (p1size >= p2size) {
 				Set<T> setOfItems = p2.getItems();
-				this.findPartition(p1).addAllItems(setOfItems);
+				this.partitions.get(partitions.indexOf(p1)).addAllItems(setOfItems);
 				for (T item: setOfItems) {
+					items.remove(item);
 					items.put(item, p1);
 				}
-			partitions.remove(p2);
-			p2.removeAllItems();
-			size--;
+				partitions.remove(p2);
+				this.partitions.get(partitions.indexOf(p1)).setLeader(leader1);
+				size--;
 		}
 		
 		else {
@@ -88,6 +86,14 @@ public class UnionFind<T> implements UnionFindInterface<T>, Iterable<Partition<T
 	public int getSize() {
 		// TODO Auto-generated method stub
 		return size;
+	}
+	
+	public List<Partition<T>> getPartition() {
+		return partitions;
+	}
+	
+	public Map<T, Partition<T>> getMap() {
+		return items;
 	}
 
 	@Override

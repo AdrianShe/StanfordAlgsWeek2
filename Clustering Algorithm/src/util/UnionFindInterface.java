@@ -29,7 +29,7 @@ public interface UnionFindInterface<T> {
 		
 		public int getSize(Partition<T> p);
 		
-		public Partition<T> findPartition(Partition<T> partition);
+		public Partition<T> findPartition(T t);
 		
 		public void printUnionFind();
 

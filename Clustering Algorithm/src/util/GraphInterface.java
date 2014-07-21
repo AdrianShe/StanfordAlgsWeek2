@@ -19,6 +19,9 @@ public interface GraphInterface {
 	// Add an edge to the node in the graph
 	public void addEdge(int s, int d, int w);
 	
+	// Sort edges
+	public List<Edge> sortEdges(List<Edge> loe);
+	
 	// Getters
 	public Integer getNumVerticies();
 	

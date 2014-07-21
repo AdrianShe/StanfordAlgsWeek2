@@ -52,5 +52,20 @@ public class TestSimpleGraph {
 		assertEquals(edge2, edges.get(1));
 		assertEquals(edge3, edges.get(2));
 	}
+	
+	@Test
+	public void testSortEdges() {
+		Edge same = new Edge(3,4,4);
+		g.addEdge(3,4,4);
+		List<Edge> edges = g.sortEdges(g.getEdges());
+		Edge edge1 = new Edge(1,2,4);
+		Edge edge2 = new Edge(1,5,2);
+		Edge edge3 = new Edge(2,3,6);
+		assertEquals(edge2, edges.get(0));
+		assertEquals(edge1, edges.get(1));
+		assertEquals(same, edges.get(2));
+		assertEquals(edge3, edges.get(3));
+
+	}
 
 }

@@ -23,17 +23,16 @@ public class ClusterHamming {
 	private static Integer numclusters; // Desired number of clusters
 	private int curclusters; // Current number of clusters
 	
-	public ClusterHamming() {
-		
+	public ClusterHamming(List<List<Integer>> bits) {
+		unionfind = new UnionFind<List<Integer>>(bits);
+		numclusters = unionfind.getSize();
 	}
 	
 	// Cluster until k-clusters appear
-	public void runClustering() {
-		
-	}
-	
-	// Cluster until some minimum spacing occurs
 	public void runClustering(int k) {
+		
+		// Check closeness based on differing bits.
+		// WHAT IS THIS MADNESS?
 		
 	}
 

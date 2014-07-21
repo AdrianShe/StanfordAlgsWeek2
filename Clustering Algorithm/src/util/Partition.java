@@ -50,6 +50,10 @@ public class Partition<T> implements PartitionInterface<T> {
 		// TODO Auto-generated method stub
 		return leader;
 	}
+	
+	public void setLeader(T t) {
+		leader = t;
+	}
 
 	@Override
 	public int getSize() {

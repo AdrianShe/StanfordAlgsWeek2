@@ -1,7 +1,10 @@
 
 package util;
 
+
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
@@ -17,6 +20,7 @@ public class Graph implements GraphInterface, Iterable<LinkedList<Edge>>{
 	 */
 	int numVerticies;
 	ArrayList<LinkedList<Edge>> graph;
+	Integer[][] matrix;
 	
 	public Graph() {
 		// Default capacity 1000 verticies
@@ -25,6 +29,7 @@ public class Graph implements GraphInterface, Iterable<LinkedList<Edge>>{
 		for (int i = 1; i <= numVerticies; i++) {
 			addVertex(i);
 		}
+		matrix = new Integer[1000][1000];
 	}
 	
 	public Graph(int numVertex) {
@@ -33,6 +38,7 @@ public class Graph implements GraphInterface, Iterable<LinkedList<Edge>>{
 		for (int i = 1; i <= numVerticies; i++) {
 			addVertex(i);
 		}
+		matrix = new Integer[numVertex][numVertex];
 	}
 	
 	@Override
@@ -54,6 +60,8 @@ public class Graph implements GraphInterface, Iterable<LinkedList<Edge>>{
 		// TODO Auto-generated method stub
 		graph.get(s-1).add(new Edge(s,d,w));
 		graph.get(d-1).add(new Edge(d,s,w));
+		matrix[s-1][d-1] = w;
+		matrix[d-1][s-1] = w;
 	}
 	
 	@Override
@@ -82,6 +90,25 @@ public class Graph implements GraphInterface, Iterable<LinkedList<Edge>>{
 		}
 		return edges;
 	}
+	
+	public int containsEdge(int i, int j) {
+		return matrix[i][j];
+	}
+	
+	@Override
+	public List<Edge> sortEdges(List<Edge> loe) {
+		// TODO Auto-generated method stub
+		 final class EdgeComparator implements Comparator<Edge> {
+			@Override
+			public int compare(Edge arg0, Edge arg1) {
+				// TODO Auto-generated method stub
+				return arg0.getWeight() - arg1.getWeight();
+			}
+		}
+		
+		Collections.sort(loe, new EdgeComparator());
+		return loe;
+	}
 
 	@Override
 	public Iterator<LinkedList<Edge>> iterator() {
@@ -97,5 +124,7 @@ public class Graph implements GraphInterface, Iterable<LinkedList<Edge>>{
 			}
 		}
 	}
+
+	
 	
 }

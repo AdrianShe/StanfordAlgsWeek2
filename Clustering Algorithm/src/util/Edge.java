@@ -29,6 +29,12 @@ public class Edge {
 		public int getWeight() {
 			return weight;
 		}
+		
+		public void print() {
+			System.out.println(source + " " + destination + " " + weight);
+		}
+		
+		
 
 		@Override
 		public int hashCode() {
